@@ -11,9 +11,6 @@ class Reminder(BaseModel):
     text: str
 
 
-r.set("reminders", "hey")
-
-
 @app.get("/")
 def read_root():
     return "Welcome!"
@@ -21,9 +18,9 @@ def read_root():
 
 @app.get("/get-reminders")
 def get_reminders():
-    return r.get("reminders")
+    return r.smembers("reminds")
 
 
 @app.put("/add-reminder")
 def add_reminder(reminder: Reminder):
-    pass
+    r.sadd("reminds", reminder.text)
