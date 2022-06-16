@@ -1,5 +1,8 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+import redis
+
+r = redis.Redis()
 
 app = FastAPI()
 
@@ -7,16 +10,20 @@ app = FastAPI()
 class Reminder(BaseModel):
     text: str
 
-reminders = []
+
+r.set("reminders", "hey")
+
 
 @app.get("/")
 def read_root():
     return "Welcome!"
 
+
 @app.get("/get-reminders")
 def get_reminders():
-    return reminders
+    return r.get("reminders")
+
 
 @app.put("/add-reminder")
 def add_reminder(reminder: Reminder):
-    reminders.append(reminder)
+    pass
