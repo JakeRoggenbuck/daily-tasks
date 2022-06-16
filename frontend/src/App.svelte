@@ -12,10 +12,12 @@
 </script>
 
 <main>
+  <h1>Daily Reminders</h1>
+
   {#if reminders}
     {#each reminders as reminder}
       <ul>
-		<li>{reminder}</li>
+        <li>{reminder}</li>
       </ul>
     {/each}
   {:else}
